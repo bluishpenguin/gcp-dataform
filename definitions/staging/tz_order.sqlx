@@ -1,0 +1,12 @@
+config {
+    type: "table",
+    name: "tz_order"
+}
+
+SELECT
+  order_id AS order_id,
+  location_id AS location_id,
+  order_datetime AS ordered_at,
+  order_completion_datetime AS completed_at
+FROM
+  ${ref("order_raw")}

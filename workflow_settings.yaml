@@ -1,0 +1,9 @@
+defaultProject: nova-coder-04
+defaultDataset: coffee_on_wheels_tz
+defaultAssertionDataset: coffee_on_wheels_tz_assertions
+dataformCoreVersion: 3.0.37
+
+
+vars:
+  raw_project: "nova-coder-04"
+  raw_dataset: "coffee_on_wheels_raw"

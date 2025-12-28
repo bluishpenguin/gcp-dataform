@@ -1,0 +1,67 @@
+config {
+    type: "table",
+    name: "fact_order",
+    description: "Final flattened table containing all order, item, and location details",
+    bigquery: {
+        partitionBy: "DATE(ordered_at)"
+    }
+}
+
+WITH
+  order_item AS (
+  SELECT
+    order_id,
+    order_item_id,
+    menu_id,
+    quantity,
+    price,
+    amount,
+  FROM
+    ${ref("tz_order_item")} ),
+  menu AS (
+  SELECT
+    menu_id,
+    name,
+    description,
+    price,
+    size,
+  FROM
+    ${ref("tz_menu")} ),
+  location AS (
+  SELECT
+    location_id,
+    location_name,
+    location_type,
+    location_secret
+  FROM
+    ${ref("tz_location")} )
+SELECT
+  orders.order_id,
+  orders.location_id,
+  location.location_name,
+  location.location_type,
+  location.location_secret,
+  orders.ordered_at,
+  orders.completed_at,
+  order_item.menu_id,
+  menu.name,
+  menu.description,
+  menu.size,
+  order_item.quantity,
+  order_item.price,
+  order_item.amount
+FROM
+  ${ref("tz_order")} AS orders
+LEFT JOIN
+  location
+ON
+  location.location_id = orders.location_id
+LEFT JOIN
+  order_item
+ON
+  orders.order_id = order_item.order_id
+LEFT JOIN
+  menu
+ON
+  menu.menu_id = order_item.menu_id
+

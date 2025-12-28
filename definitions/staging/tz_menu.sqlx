@@ -1,0 +1,13 @@
+config {
+    type: "table",
+    name: "tz_menu"
+}
+
+SELECT
+  menu_id AS menu_id,
+  item_name AS name,
+  item_description AS description,
+  item_price AS price,
+  UPPER(item_size) AS size,
+FROM
+  ${ref("menu_raw")}

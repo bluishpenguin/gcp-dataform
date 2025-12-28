@@ -1,0 +1,13 @@
+config {
+    type: "table",
+    name: "tz_location"
+    // No 'schema' needed here; it defaults to coffee_on_wheels_tz
+}
+
+SELECT
+  location_id AS location_id,
+  location_name AS location_name,
+  location_type AS location_type,
+  SUBSTR(REPLACE(GENERATE_UUID(), '-', ''), 1, 16) AS location_secret
+FROM
+  ${ref("location_raw")}

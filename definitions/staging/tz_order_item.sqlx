@@ -1,0 +1,14 @@
+config {
+    type: "table",
+    name: "tz_order_item"
+}
+
+SELECT
+  order_id AS order_id,
+  order_item_id AS order_item_id,
+  menu_id AS menu_id,
+  quantity AS quantity,
+  item_price AS price,
+  item_total AS amount,
+FROM
+  ${ref("order_item_raw")}
